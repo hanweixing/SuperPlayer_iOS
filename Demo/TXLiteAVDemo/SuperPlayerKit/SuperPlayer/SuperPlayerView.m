@@ -14,21 +14,8 @@
 #import "SuperPlayerModelInternal.h"
 #import "NSString+URL.h"
 // TODO: 处理头部引用
-#import "TXAudioCustomProcessDelegate.h"
-#import "TXAudioRawDataDelegate.h"
-#import "TXBitrateItem.h"
-#import "TXImageSprite.h"
-#import "TXLiteAVCode.h"
-#import "TXLiveAudioSessionDelegate.h"
-#import "TXLiveBase.h"
-#import "TXLivePlayConfig.h"
-#import "TXLivePlayListener.h"
-#import "TXLivePlayer.h"
-#import "TXLiveRecordListener.h"
-#import "TXLiveRecordTypeDef.h"
-#import "TXLiveSDKEventDef.h"
-#import "TXLiveSDKTypeDef.h"
-#import "TXPlayerAuthParams.h"
+#import <TXLiteAVSDK_Player/TXLiteAVSDK.h>
+
 #ifdef ENABLE_UGC
 #import "TXUGCBase.h"
 #import "TXUGCPartsManager.h"
@@ -36,10 +23,6 @@
 #import "TXUGCRecordListener.h"
 #import "TXUGCRecordTypeDef.h"
 #endif
-#import "TXVideoCustomProcessDelegate.h"
-#import "TXVodPlayConfig.h"
-#import "TXVodPlayListener.h"
-#import "TXVodPlayer.h"
 
 static UISlider * _volumeSlider;
 
@@ -1488,6 +1471,9 @@ static UISlider * _volumeSlider;
             [self setNeedsLayout];
             [self layoutIfNeeded];
             self.isLoaded = YES;
+            if ([self.delegate respondsToSelector:@selector(superPlayerDidLoad:)]) {
+                [self.delegate superPlayerDidLoad:self];
+            }
             [self _removeOldPlayer];
             [self.vodPlayer setupVideoWidget:self insertIndex:0];
             [self layoutSubviews];  // 防止横屏状态下添加view显示不全
@@ -1628,6 +1614,9 @@ static UISlider * _volumeSlider;
                 [self setNeedsLayout];
                 [self layoutIfNeeded];
                 self.isLoaded = YES;
+                if ([self.delegate respondsToSelector:@selector(superPlayerDidLoad:)]) {
+                    [self.delegate superPlayerDidLoad:self];
+                }
                 [self _removeOldPlayer];
                 [self.livePlayer setupVideoWidget:CGRectZero containView:self insertIndex:0];
                 [self layoutSubviews];  // 防止横屏状态下添加view显示不全
