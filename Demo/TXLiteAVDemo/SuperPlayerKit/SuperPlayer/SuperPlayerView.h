@@ -9,6 +9,8 @@
 @class TXImageSprite;
 @protocol SuperPlayerDelegate <NSObject>
 @optional
+/// Did load
+- (void)superPlayerDidLoad:(SuperPlayerView *)player;
 /// 返回事件
 - (void)superPlayerBackAction:(SuperPlayerView *)player;
 /// 全屏改变通知
